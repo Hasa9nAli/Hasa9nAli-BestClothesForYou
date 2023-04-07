@@ -2,9 +2,11 @@ package com.hasan.bestclothesforyou
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.hasan.bestclothesforyou.databinding.ActivityMainBinding
 import okhttp3.*
 import java.io.IOException
+import java.time.LocalDateTime
 
 class MainActivity : AppCompatActivity() {
     private val client = OkHttpClient()
@@ -28,7 +30,8 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call, response: Response) {
                 runOnUiThread {
-                    binding.textView.text = response.body.toString()
+                    binding.textView.text = LocalDateTime.now().toString()
+
                 }
             }
 
