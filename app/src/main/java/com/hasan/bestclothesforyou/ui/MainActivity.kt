@@ -2,13 +2,11 @@ package com.hasan.bestclothesforyou.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.google.gson.Gson
 import com.hasan.bestclothesforyou.data.WeatherData
 import com.hasan.bestclothesforyou.databinding.ActivityMainBinding
 import com.hasan.bestclothesforyou.util.Constraint
 import okhttp3.*
-import org.json.JSONObject
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
@@ -28,15 +26,15 @@ class MainActivity : AppCompatActivity() {
             .build()
         client.newCall(requestWeatherApi).enqueue(object : Callback{
             override fun onFailure(call: Call, e: IOException) {
-                Log.i("Hasan", "Fail request")
+
             }
 
             override fun onResponse(call: Call, response: Response) {
                 val responseApi = response.body?.string()
                 val gson = Gson()
                 val weatherData = gson.fromJson(responseApi, WeatherData::class.java)
-                    runOnUiThread {
-                        binding.textView.text = weatherData.current.observationTime
+                runOnUiThread {
+                        binding.textView.text = weatherData.location.localtime
                     }
                 }
 
