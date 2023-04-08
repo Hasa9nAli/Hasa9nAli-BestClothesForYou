@@ -1,9 +1,14 @@
-package com.hasan.bestclothesforyou
+package com.hasan.bestclothesforyou.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import com.google.gson.Gson
+import com.hasan.bestclothesforyou.data.WeatherData
 import com.hasan.bestclothesforyou.databinding.ActivityMainBinding
+import com.hasan.bestclothesforyou.util.Constraint
 import okhttp3.*
+import org.json.JSONObject
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
@@ -19,18 +24,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun makeRequestOfWeatherApiOKHTTP(){
         val requestWeatherApi = Request.Builder()
-            .url("https://api.tomorrow.io/v4/weather/forecast?apikey=L4sJOkIDWYiG1IRwLPNkjYHgzq3GRgrq&location=egypt")
+            .url("http://api.weatherstack.com/current?access_key=${Constraint.API_WEATHER_KEY}&query=${Constraint.LOCATION_CITY_WEATHER}")
             .build()
         client.newCall(requestWeatherApi).enqueue(object : Callback{
             override fun onFailure(call: Call, e: IOException) {
-                TODO(e.toString() )
+                Log.i("Hasan", "Fail request")
             }
 
             override fun onResponse(call: Call, response: Response) {
-                runOnUiThread {
-                    binding.textView.text = response.body.toString()
+                val responseApi = response.body?.string()
+                val gson = Gson()
+                val weatherData = gson.fromJson(responseApi, WeatherData::class.java)
+                    runOnUiThread {
+                        binding.textView.text = weatherData.current.observationTime
+                    }
                 }
-            }
+
 
         })
     }
