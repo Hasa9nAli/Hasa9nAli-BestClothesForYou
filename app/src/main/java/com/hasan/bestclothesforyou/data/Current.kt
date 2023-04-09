@@ -1,8 +1,6 @@
 package com.hasan.bestclothesforyou.data
 
-import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import java.net.URL
 
 data class Current(
     @SerializedName("observation_time") val observationTime: String,
