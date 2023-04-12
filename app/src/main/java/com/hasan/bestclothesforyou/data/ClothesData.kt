@@ -33,8 +33,6 @@ fun getAllClothes(): List<ClothesData> {
             ),
 
     )
-
-
 }
 fun addNewClothes(clothes : ClothesData){
     listOfClothes.add(clothes)
