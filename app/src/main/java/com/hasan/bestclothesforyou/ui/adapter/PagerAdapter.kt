@@ -1,4 +1,4 @@
-package com.hasan.bestclothesforyou.ui
+package com.hasan.bestclothesforyou.ui.adapter
 
 
 import androidx.fragment.app.Fragment

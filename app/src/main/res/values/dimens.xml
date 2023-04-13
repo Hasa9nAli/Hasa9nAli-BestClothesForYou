@@ -32,4 +32,5 @@
     <dimen name="spacing_specific_48_card">48dp</dimen>
     <dimen name="text_size_42">42sp</dimen>
     <dimen name="space_24">24dp</dimen>
+    <dimen name="space_38">38dp</dimen>
 </resources>

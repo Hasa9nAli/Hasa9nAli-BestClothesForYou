@@ -3,11 +3,8 @@ package com.hasan.bestclothesforyou.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
-import androidx.fragment.app.Fragment
-import com.hasan.bestclothesforyou.R
 import com.hasan.bestclothesforyou.databinding.ActivityMainBinding
-import com.hasan.bestclothesforyou.ui.PagerAdapter
+import com.hasan.bestclothesforyou.ui.adapter.PagerAdapter
 import com.hasan.bestclothesforyou.ui.fragment.AddClothesFragment
 import com.hasan.bestclothesforyou.ui.fragment.HomeFragment
 import java.text.SimpleDateFormat
@@ -15,8 +12,8 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private val homeFragment = HomeFragment()
-    private val homeFragment2 = AddClothesFragment()
-    private val listOfFragment = listOf(homeFragment, homeFragment2)
+    private val addClothesFragment = AddClothesFragment()
+    private val listOfFragment = listOf(homeFragment, addClothesFragment)
     private lateinit var handler: Handler
     private lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
