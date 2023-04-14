@@ -1,7 +1,9 @@
 package com.hasan.bestclothesforyou.ui.fragment
 
 import android.R
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +13,16 @@ import com.hasan.bestclothesforyou.data.Season
 import com.hasan.bestclothesforyou.databinding.FragmentAddClothesBinding
 import com.google.android.material.button.MaterialButton
 import com.hasan.bestclothesforyou.ui.adapter.SeasonAdapter
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 
+@Suppress("DEPRECATION")
 class AddClothesFragment : Fragment() {
     private lateinit var binding : FragmentAddClothesBinding
+    private val CAMERA_REQUEST_CODE = 1
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,4 +50,32 @@ class AddClothesFragment : Fragment() {
             Season("spring", false),
         )
     }
+    fun cameraCheckPermission(){
+        Dexter.withContext(this.context).withPermissions(
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.CAMERA
+        ).withListener(object : MultiplePermissionsListener{
+            override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                report?.let {
+                    if (report.areAllPermissionsGranted()){
+                        camera()
+                    }
+                }
+            }
+
+            override fun onPermissionRationaleShouldBeShown(
+                p0: MutableList<PermissionRequest>?,
+                p1: PermissionToken?
+            ) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+    private fun camera() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(intent, CAMERA_REQUEST_CODE)
+    }
+
 }

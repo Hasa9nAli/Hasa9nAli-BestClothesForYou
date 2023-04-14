@@ -65,7 +65,6 @@ class HomeFragment : Fragment(){
             uploadImage(chooseClothesForToday)
         }
     }
-
     fun filterClothesDataBySeasonAndTemperature(clothesList: List<ClothesData>, season: String, temperature: Int): List<ClothesData> {
         return clothesList.filter { clothesData ->
             clothesData.seasonType == season &&
