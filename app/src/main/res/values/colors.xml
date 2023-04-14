@@ -2,13 +2,19 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary">#3787EB</color>
+    <color name="primary">#004494</color>
+    <color name="primary_60">#99004494</color>
     <color name="secondary">#004494</color>
     <color name="on_primary">#FFFFFF</color>
     <color name="primary_container">#FFFFFF</color>
     <color name="on_card_title_80">#CC121212</color>
     <color name="on_card_description_and_icon_60">#99121212</color>
     <color name="on_background_title">#121212</color>
+    <color name="on_background_37">#5E121212</color>
     <color name="background">#FAFAFA</color>
+    <color name="text_color">#0A2646</color>
+    <color name="text_color_37">#5E0A2646</color>
+    <color name="field_background">#FAFCFF</color>
+
 
 </resources>

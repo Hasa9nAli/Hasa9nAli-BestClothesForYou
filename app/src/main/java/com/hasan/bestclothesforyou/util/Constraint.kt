@@ -1,6 +1,32 @@
 package com.hasan.bestclothesforyou.util
 
 object Constraint {
-    const val API_WEATHER_KEY = "6c499a638cccf2e9292fa288a60f8b10"
+    const val API_WEATHER_KEY = "b001f9dfe36a18baa778830fa49ed37f"
     const val LOCATION_CITY_WEATHER = "mosul iraq"
+
+    const val WEATHER_SUNNY =  "Sunny"
+    const val WEATHER_PARTLY_CLOUDY = "Partly cloudy"
+    const val WEATHER_CLOUDY = "Cloudy"
+    const val WEATHER_OVERCAST = "Overcast"
+    const val WEATHER_MIST = "Mist"
+    const val WEATHER_PATCHY_RAIN_POSSIBLE = "Patchy rain possible"
+    const val WEATHER_PATCHY_SNOW_POSSIBLE = "Patchy snow possible"
+    const val WEATHER_PATCHY_SLEET_POSSIBLE = "Patchy sleep possible"
+    const val WEATHER_PATCHY_FREEZING_DRIZZLE_POSSIBLE = "Patch freezing drizzle possible"
+    const val WEATHER_THUNDERY_POSSIBLE = "Thundery outbreaks possible"
+    const val WEATHER_BLOWING_SNOW = "Blowing snow"
+    const val WEATHER_BLIZZARD = "Blizzard"
+    const val WEATHER_FOG = "Fog"
+    const val WEATHER_FREEZING_FOG = "Freezing fog"
+    const val WEATHER_PATCHY_LIGHT_DRIZZLE = "Patchy light drizzle"
+    const val WEATHER_LIGHT_DRIZZLE = "Light drizzle"
+    const val WEATHER_FREEZING_DRIZZLE = "Freezing drizzle"
+    const val WEATHER_HEAVY_FREEZING_DRIZZLE = "Heavy freezing drizzle"
+    const val WEATHER_PATCHY_LIGHT_RAIN = "Patchy light rain"
+    const val WEATHER_LIGHT_RAIN = "Light rain"
+    const val WEATHER_MODERATE_RAIN_AT_TIMES = "Moderate rain at times"
+    const val WEATHER_MODERATE_RAIN = "Moderate rain at times"
+    const val WEATHER_HEAVY_RAIN_AT_TIMES = "Heavy rain at times"
+    const val WEATHER_HEAVY_RAIN = "Heavy rain"
+    const val WEATHER_LIGHT_FREEZING_RAIN = "Light freezing rain"
 }
