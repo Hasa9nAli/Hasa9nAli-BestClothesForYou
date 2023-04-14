@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">BestClothesForYou</string>
     <string name="dropdown">ssc</string>
+    <string name="range_of_degree_for_this_clothes">Range Of Degree for this Clothes</string>
 </resources>

@@ -1,3 +1,6 @@
 package com.hasan.bestclothesforyou.data
 
-data class Season(val name : String,val isSelect : Boolean?)
+import android.graphics.drawable.Drawable
+import com.hasan.bestclothesforyou.R
+
+data class Season(val name: String, var isSelected: Boolean?)

@@ -7,7 +7,7 @@
     <dimen name="spacing_giant">32dp</dimen>
 
     <!--text dimens-->
-    <dimen name="text_tiny">11sp</dimen>
+    <dimen name="text_tiny">8sp</dimen>
     <dimen name="text_semi_small">12sp</dimen>
     <dimen name="text_small">14sp</dimen>
     <dimen name="text_medium">16sp</dimen>

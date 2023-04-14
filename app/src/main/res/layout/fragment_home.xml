@@ -151,7 +151,6 @@
         tools:src="@drawable/t_shirt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_title_suggest"
-
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
