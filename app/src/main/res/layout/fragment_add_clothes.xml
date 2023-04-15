@@ -27,15 +27,16 @@
         app:layout_constraintStart_toEndOf="@+id/icon_back"
         app:layout_constraintTop_toTopOf="@+id/icon_back" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_view_upload_image"
         style="style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_38"
+        app:circularflow_defaultRadius="54dp"
         android:background="@drawable/background_raduis"
         android:src="@drawable/image_view_camera"
-        app:circularflow_radiusInDP="12dp"
+
         app:layout_constraintEnd_toEndOf="@+id/text_view_title_add_new_clothes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_title_add_new_clothes" />
@@ -82,7 +83,7 @@
         app:layout_constraintTop_toBottomOf="@+id/image_view_upload_image" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/edit_text_name_clothes"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_field"
         android:layout_marginHorizontal="@dimen/spacing_medium"
@@ -100,8 +101,8 @@
         android:layout_marginTop="@dimen/spacing_medium"
         android:text="Add New Clothes"
         android:textColor="@color/text_color"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintStart_toStartOf="@+id/edit_text_name_clothes"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_name_clothes" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -123,7 +124,8 @@
             android:gravity="center"
             android:outlineAmbientShadowColor="@color/field_background"
             android:outlineSpotShadowColor="@color/field_background"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"
+            />
 
         <ImageView
             android:layout_width="wrap_content"

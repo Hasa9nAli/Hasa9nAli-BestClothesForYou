@@ -17,7 +17,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import coil.load
 import com.hasan.bestclothesforyou.data.Season
@@ -28,6 +30,7 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import java.time.LocalDate
 
 @Suppress("DEPRECATION")
 class AddClothesFragment : Fragment() {
@@ -42,24 +45,39 @@ class AddClothesFragment : Fragment() {
         binding = FragmentAddClothesBinding.inflate(inflater, container, false)
         binding.recyclerSeason.adapter = seasonAdapter
         createAdapter()
+        binding.apply {
+            editTextNameClothes.addTextChangedListener {
+                textViewTitleCardAddNewClothes.text = editTextNameClothes.text
+            }
+        }
+        binding.spinnerClothes.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                binding.textViewCategoryUpload.text = parent?.getItemAtPosition(position).toString()
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                binding.textViewCategoryUpload.text = "Category"
+            }
+        })
         binding.imageViewUploadImage.setOnClickListener {
             cameraCheckPermission()
         }
-
         return binding.root
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
             val bitmap = data?.extras?.get("data") as Bitmap
             val sharePreprences = requireActivity().getSharedPreferences("Name", Context.MODE_PRIVATE)
             val editor = sharePreprences.edit()
             val imageBitMap = bitmap
             editor.putString("Name", bitmap.toString())
             editor.apply()
+            Log.i("LLL", bitmap.toString())
             binding.imageViewUploadImage.load(bitmap)
-            binding.iconBack.load(sharePreprences.getString("Name", "testing"))
     }
 
     private fun createAdapter(){
@@ -67,7 +85,9 @@ class AddClothesFragment : Fragment() {
         val items = arrayOf("T-shirt", "suit", "cote")
         val adapter = ArrayAdapter(binding.spinnerClothes.context, R.layout.simple_spinner_item, items)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter}
+        spinner.adapter = adapter
+
+    }
 
 
     fun cameraCheckPermission(){

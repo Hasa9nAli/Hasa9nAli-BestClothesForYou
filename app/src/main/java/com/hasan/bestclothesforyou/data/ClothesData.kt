@@ -31,7 +31,6 @@ fun getAllClothes(): List<ClothesData> {
             Category = "T-shirt",
             seasonType = "summer"
             ),
-
     )
 }
 fun addNewClothes(clothes : ClothesData){
