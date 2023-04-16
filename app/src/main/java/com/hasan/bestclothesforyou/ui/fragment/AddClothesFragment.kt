@@ -10,10 +10,12 @@ import androidx.fragment.app.Fragment
 import com.hasan.bestclothesforyou.data.Season
 import com.hasan.bestclothesforyou.databinding.FragmentAddClothesBinding
 import com.google.android.material.button.MaterialButton
+import com.hasan.bestclothesforyou.database.ClothesDatabaseHelper
 import com.hasan.bestclothesforyou.ui.adapter.SeasonAdapter
 
 class AddClothesFragment : Fragment() {
     private lateinit var binding : FragmentAddClothesBinding
+    private lateinit var databaseHelper : ClothesDatabaseHelper
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
