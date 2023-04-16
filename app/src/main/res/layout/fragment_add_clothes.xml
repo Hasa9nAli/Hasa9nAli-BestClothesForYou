@@ -204,6 +204,7 @@
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
     <Button
+        android:id="@+id/add_to_my_collection"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_field"
         android:background="@drawable/background_button"

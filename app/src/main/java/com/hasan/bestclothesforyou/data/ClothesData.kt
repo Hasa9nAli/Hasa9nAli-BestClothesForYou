@@ -6,9 +6,9 @@ private val listOfClothes = mutableListOf<ClothesData>()
 data class ClothesData(
     var id : String,
     val name : String,
-    val imageUrl : Bitmap,
+    val imageBitmap: Bitmap,
     val weatherDegree : Pair<Int, Int>,
-    val Category : String,
+    val category : String,
     val seasonType : String
 )
 fun getAllClothes(): List<ClothesData> {
