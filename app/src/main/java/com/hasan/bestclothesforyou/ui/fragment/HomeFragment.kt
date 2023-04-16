@@ -101,6 +101,8 @@ class HomeFragment : Fragment() {
         }
     }
 
+    fun filterClothesDataBySeasonAndTemperature(clothesList: List<ClothesData>, season: String, temperature: Int): List<ClothesData> {
+
     fun filterClothesDataBySeasonAndTemperature(
         clothesList: List<ClothesData>,
         season: String,
