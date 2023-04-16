@@ -49,9 +49,6 @@ class SeasonAdapter(private val seasonList : List<Season>)
                     textView4.setTextColor(Color.rgb( 255, 255, 255))
 //                    seasonList[position].isSelected = !seasonList[position].isSelected!!
                 }
-                //                else {
-//                    cardSeason.setBackgroundColor(Color.argb(0, 255, 255, 255))
-//                }
             }
         }
         }
