@@ -24,6 +24,9 @@ import androidx.fragment.app.Fragment
 import coil.load
 import com.hasan.bestclothesforyou.data.Season
 import com.hasan.bestclothesforyou.databinding.FragmentAddClothesBinding
+=======
+import com.google.android.material.button.MaterialButton
+import com.hasan.bestclothesforyou.database.ClothesDatabaseHelper
 import com.hasan.bestclothesforyou.ui.adapter.SeasonAdapter
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -36,6 +39,7 @@ import java.time.LocalDate
 class AddClothesFragment : Fragment() {
     private lateinit var binding : FragmentAddClothesBinding
     private val CAMERA_REQUEST_CODE = 1
+    private lateinit var databaseHelper : ClothesDatabaseHelper
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
