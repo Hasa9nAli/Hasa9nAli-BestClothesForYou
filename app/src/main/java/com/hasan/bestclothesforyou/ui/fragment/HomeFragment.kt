@@ -77,7 +77,7 @@ class HomeFragment : Fragment() {
     private fun uploadImage(chooseClothesForToday: List<ClothesData>) {
         val sharedPreferences =
             requireActivity().getSharedPreferences(DATE_INFORMATION, Context.MODE_PRIVATE)
-        val storeIdImage = sharedPreferences.getString("idClothesToday","")
+        val storeIdImage = sharedPreferences.getString(ID_TODAY_CLOTHES,"")
         Glide.with(binding.imageViewSuggestClothes.context).load(chooseClothesForToday.filter {it.id == storeIdImage}[0].imageUrl)
             .placeholder(R.drawable.ellipse_temp)
             .into(binding.imageViewSuggestClothes)
@@ -127,5 +127,6 @@ class HomeFragment : Fragment() {
     }
     companion object {
         const val DATE_INFORMATION = "Date Information"
+        const val ID_TODAY_CLOTHES = "idClothesToday"
     }
 }
