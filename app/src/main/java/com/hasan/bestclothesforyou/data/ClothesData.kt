@@ -14,27 +14,27 @@ data class ClothesData(
 fun getAllClothes(): List<ClothesData> {
     return listOf(
 
-        ClothesData(
-            name = "T-shirt",
-            imageUrl = "https://cdn.pixabay.com/photo/2016/12/06/09/31/blank-1886008__340.png",
-            weatherDegree = Pair(0, 50),
-            Category = "T-shirt",
-            seasonType = "summer"
-        ),
-        ClothesData(
-            name = "Cote",
-            imageUrl = "https://images.unsplash.com/photo-1585412459212-8def26f7e84c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
-            weatherDegree = Pair(0, 50),
-            Category = "T-shirt",
-            seasonType = "winter"
-            ),
-        ClothesData(
-            name = "Cote",
-            imageUrl = "https://cdn.pixabay.com/photo/2017/01/13/04/56/t-shirt-1976334_960_720.png",
-            weatherDegree = Pair(0, 50),
-            Category = "T-shirt",
-            seasonType = "summer"
-            ),
+//        ClothesData(
+//            name = "T-shirt",
+//            imageUrl = "https://cdn.pixabay.com/photo/2016/12/06/09/31/blank-1886008__340.png",
+//            weatherDegree = Pair(0, 50),
+//            Category = "T-shirt",
+//            seasonType = "summer"
+//        ),
+//        ClothesData(
+//            name = "Cote",
+//            imageUrl = "https://images.unsplash.com/photo-1585412459212-8def26f7e84c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
+//            weatherDegree = Pair(0, 50),
+//            Category = "T-shirt",
+//            seasonType = "winter"
+//            ),
+//        ClothesData(
+//            name = "Cote",
+//            imageUrl = "https://cdn.pixabay.com/photo/2017/01/13/04/56/t-shirt-1976334_960_720.png",
+//            weatherDegree = Pair(0, 50),
+//            Category = "T-shirt",
+//            seasonType = "summer"
+//            ),
 //        ClothesData(
 //            id = "1" ,
 //            name = "T-shirt",

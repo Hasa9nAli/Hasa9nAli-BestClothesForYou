@@ -1,13 +1,11 @@
 package com.hasan.bestclothesforyou.ui.fragment
 
 import android.R
-import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -22,23 +20,23 @@ import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import coil.load
+import com.hasan.bestclothesforyou.data.ClothesData
 import com.hasan.bestclothesforyou.data.Season
-import com.hasan.bestclothesforyou.databinding.FragmentAddClothesBinding
-=======
-import com.google.android.material.button.MaterialButton
 import com.hasan.bestclothesforyou.database.ClothesDatabaseHelper
+import com.hasan.bestclothesforyou.databinding.FragmentAddClothesBinding
 import com.hasan.bestclothesforyou.ui.adapter.SeasonAdapter
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import java.time.LocalDate
+import java.lang.Math.random
 
 @Suppress("DEPRECATION")
 class AddClothesFragment : Fragment() {
     private lateinit var binding : FragmentAddClothesBinding
     private val CAMERA_REQUEST_CODE = 1
+    lateinit var imageBitmap: Bitmap
     private lateinit var databaseHelper : ClothesDatabaseHelper
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +47,7 @@ class AddClothesFragment : Fragment() {
         binding = FragmentAddClothesBinding.inflate(inflater, container, false)
         binding.recyclerSeason.adapter = seasonAdapter
         createAdapter()
+        databaseHelper = ClothesDatabaseHelper(requireContext())
         binding.apply {
             editTextNameClothes.addTextChangedListener {
                 textViewTitleCardAddNewClothes.text = editTextNameClothes.text
@@ -67,8 +66,31 @@ class AddClothesFragment : Fragment() {
                 binding.textViewCategoryUpload.text = "Category"
             }
         })
+
         binding.imageViewUploadImage.setOnClickListener {
             cameraCheckPermission()
+        }
+        binding.apply {
+
+            addToMyCollection.setOnClickListener {
+                val nameOfClothes = editTextNameClothes.text.toString()
+                val category = spinnerClothes.selectedItem.toString()
+                val season = "summer"
+                val weatherDegree = Pair(0, 50)
+                val id = random() * 10000
+                val image = imageBitmap
+                val newClothes = ClothesData(
+                    id = id.toString(),
+                    name = nameOfClothes,
+                    category = category,
+                    seasonType = season,
+                    weatherDegree = weatherDegree,
+                    imageBitmap = image
+                )
+                databaseHelper.addClothes(newClothes)
+                Log.i("Database111","${databaseHelper.getAllClothes()}")
+
+            }
         }
         return binding.root
     }
@@ -80,9 +102,14 @@ class AddClothesFragment : Fragment() {
             val imageBitMap = bitmap
             editor.putString("Name", bitmap.toString())
             editor.apply()
-            Log.i("LLL", bitmap.toString())
             binding.imageViewUploadImage.load(bitmap)
+            getBitmap(bitmap)
     }
+    fun getBitmap(bitmap : Bitmap){
+        imageBitmap = bitmap
+    }
+
+
 
     private fun createAdapter(){
         val spinner = binding.spinnerClothes
@@ -92,8 +119,6 @@ class AddClothesFragment : Fragment() {
         spinner.adapter = adapter
 
     }
-
-
     fun cameraCheckPermission(){
         Dexter.withContext(this.context).withPermissions(
             android.Manifest.permission.READ_EXTERNAL_STORAGE,

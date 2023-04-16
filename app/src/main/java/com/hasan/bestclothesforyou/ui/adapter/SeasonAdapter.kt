@@ -41,17 +41,22 @@ class SeasonAdapter(private val seasonList : List<Season>)
                     textView4.text = AUTUMN_SEASON
                 }
             }
+            var flage = true
             cardSeason.setOnClickListener {
-                season.isSelected = true
-
-                if (season.isSelected == true) {
+                if (!(season.isSelected == flage)) {
                     cardSeason.setBackgroundColor(Color.rgb(0, 68, 148))
                     textView4.setTextColor(Color.rgb( 255, 255, 255))
 //                    seasonList[position].isSelected = !seasonList[position].isSelected!!
+                    season.isSelected = true
+                }
+                else{
+                    cardSeason.setBackgroundColor(Color.rgb(250, 252, 255))
+                    textView4.setTextColor(Color.rgb( 0, 0, 0))
+                    season.isSelected = false
                 }
             }
         }
-        }
+    }
 
     class SeasonViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = SeasonChipBinding.bind(itemView)
