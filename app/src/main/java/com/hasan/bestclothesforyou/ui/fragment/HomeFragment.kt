@@ -44,17 +44,15 @@ class HomeFragment : Fragment() {
             .build()
         client.newCall(requestWeatherApi).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.i("Hasan", "Fail request")
+
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val sharedPreferences =
-                    requireActivity().getSharedPreferences(DATE_INFORMATION, Context.MODE_PRIVATE)
+                val sharedPreferences = requireActivity().getSharedPreferences(DATE_INFORMATION, Context.MODE_PRIVATE)
                 val responseApi = response.body?.string()
                 val gson = Gson()
                 val weatherData = gson.fromJson(responseApi, WeatherData::class.java)
                 val localTime = weatherData.location.localtime.substring(5..9)
-//                val storeDate = sharedPreferences.getString("localTime","")
                 val currentTime = getCurrentLocalDate()
                 val chooseClothesForToday = filterClothesDataBySeasonAndTemperature(
                     getAllClothes(),
@@ -62,26 +60,7 @@ class HomeFragment : Fragment() {
                     weatherData.current.temperature.toInt()
                 )
                 requireActivity().runOnUiThread {
-                    Log.i("Elgohary", "local ->${localTime},,,,\n current${currentTime}")
-
-                    Toast.makeText(
-                        binding.root.context,
-                        "${localTime}, ${currentTime}",
-                        Toast.LENGTH_LONG
-                    ).show()
                     setComponentOnFragment(weatherData, chooseClothesForToday)
-                    if (localTime != currentTime) {
-                        val yesterdayClothesId = sharedPreferences.getString("idClothesToday","")
-                        val clothesToday = chooseClothesForToday
-                            .filter{it.id != yesterdayClothesId}.random()
-                        addToSharedPreferences("localTime", localTime)
-                        Glide.with(binding.imageViewSuggestClothes.context)
-                            .load(clothesToday.imageUrl)
-                            .placeholder(R.drawable.ellipse_temp)
-                            .into(binding.imageViewSuggestClothes)
-                    }else{
-                            uploadImage(chooseClothesForToday)
-                    }
                 }
             }
         })
