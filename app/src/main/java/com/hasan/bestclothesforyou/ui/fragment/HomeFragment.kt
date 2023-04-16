@@ -9,10 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.airbnb.lottie.L
-import com.bumptech.glide.Glide
+
 import com.google.gson.Gson
-import com.hasan.bestclothesforyou.R
 import com.hasan.bestclothesforyou.data.ClothesData
 import com.hasan.bestclothesforyou.data.WeatherData
 import com.hasan.bestclothesforyou.data.getAllClothes
