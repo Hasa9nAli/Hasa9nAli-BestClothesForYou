@@ -1,7 +1,6 @@
 package com.hasan.bestclothesforyou.ui.fragment
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,8 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
+import com.hasan.bestclothesforyou.R
 import com.hasan.bestclothesforyou.data.ClothesData
 import com.hasan.bestclothesforyou.data.WeatherData
 import com.hasan.bestclothesforyou.data.getAllClothes
@@ -52,7 +52,6 @@ class HomeFragment : Fragment() {
                 val gson = Gson()
                 val weatherData = gson.fromJson(responseApi, WeatherData::class.java)
                 val localTime = weatherData.location.localtime.substring(5..9)
-//                val storeDate = sharedPreferences.getString("localTime","")
                 val currentTime = getCurrentLocalDate()
                 val chooseClothesForToday = filterClothesDataBySeasonAndTemperature(
                     getAllClothes(),
@@ -72,11 +71,11 @@ class HomeFragment : Fragment() {
                         val yesterdayClothesId = sharedPreferences.getString("idClothesToday","")
                         val clothesToday = chooseClothesForToday
                             .filter{it.id != yesterdayClothesId}.random()
-                        addToSharedPreferences("localTime", localTime)
-//                        Glide.with(binding.imageViewSuggestClothes.context)
-//                            .load(clothesToday.imageUrl)
-//                            .placeholder(R.drawable.ellipse_temp)
-//                            .into(binding.imageViewSuggestClothes)
+//                        addToSharedPreferences("idClothesToday", clothesToday.id)
+                        Glide.with(binding.imageViewSuggestClothes.context)
+                            .load(clothesToday.imageUrl)
+                            .placeholder(R.drawable.ellipse_temp)
+                            .into(binding.imageViewSuggestClothes)
                     }else{
                         uploadImage(chooseClothesForToday)
                     }
@@ -96,10 +95,11 @@ class HomeFragment : Fragment() {
     private fun uploadImage(chooseClothesForToday: List<ClothesData>) {
         val sharedPreferences =
             requireActivity().getSharedPreferences(DATE_INFORMATION, Context.MODE_PRIVATE)
+
         val storeIdImage = sharedPreferences.getString("idClothesToday","")
-//        Glide.with(binding.imageViewSuggestClothes.context).load(chooseClothesForToday.filter {it.id == storeIdImage}[0].imageUrl)
-//            .placeholder(R.drawable.ellipse_temp)
-//            .into(binding.imageViewSuggestClothes)
+        Glide.with(binding.imageViewSuggestClothes.context).load(chooseClothesForToday.filter {it.id == storeIdImage}[0].imageUrl)
+            .placeholder(R.drawable.ellipse_temp)
+            .into(binding.imageViewSuggestClothes)
     }
 
     private fun setComponentOnFragment(

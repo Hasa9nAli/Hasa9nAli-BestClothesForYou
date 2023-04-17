@@ -1,7 +1,7 @@
 package com.hasan.bestclothesforyou.util
 
 object Constraint {
-    const val API_WEATHER_KEY = "13183628af9b54980858adf5252eb073"
+    const val API_WEATHER_KEY = "a92297de5ab45a10433d2cb600092c94"
     const val LOCATION_CITY_WEATHER = "mosul iraq"
 
     const val WEATHER_SUNNY =  "Sunny"
