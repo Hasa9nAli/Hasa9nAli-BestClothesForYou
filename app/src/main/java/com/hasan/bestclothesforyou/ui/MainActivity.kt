@@ -1,11 +1,11 @@
-package com.hasan.bestclothesforyou.ui.activity
+package com.hasan.bestclothesforyou.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.hasan.bestclothesforyou.R
 import com.hasan.bestclothesforyou.databinding.ActivityMainBinding
-import com.hasan.bestclothesforyou.ui.fragment.HomeFragment
+import com.hasan.bestclothesforyou.ui.HomeFragment
 import java.text.SimpleDateFormat
 import java.util.*
 

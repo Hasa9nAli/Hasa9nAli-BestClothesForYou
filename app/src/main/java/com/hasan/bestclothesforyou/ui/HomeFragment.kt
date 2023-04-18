@@ -1,4 +1,4 @@
-package com.hasan.bestclothesforyou.ui.fragment
+package com.hasan.bestclothesforyou.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
@@ -16,13 +15,12 @@ import com.hasan.bestclothesforyou.data.WeatherData
 import com.hasan.bestclothesforyou.data.getAllClothes
 import com.hasan.bestclothesforyou.databinding.FragmentHomeBinding
 import com.hasan.bestclothesforyou.util.Constraint
+import com.hasan.bestclothesforyou.util.PrefUtil
 import okhttp3.*
 import java.io.IOException
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.time.LocalTime
 import java.util.*
-
 class HomeFragment : Fragment() {
     private val client = OkHttpClient()
     lateinit var binding: FragmentHomeBinding
@@ -31,6 +29,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        PrefUtil.initialPref(requireContext())
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         makeRequestOfWeatherApiOKHTTP()
         return binding.root
@@ -46,8 +45,6 @@ class HomeFragment : Fragment() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val sharedPreferences =
-                    requireActivity().getSharedPreferences(DATE_INFORMATION, Context.MODE_PRIVATE)
                 val responseApi = response.body?.string()
                 val gson = Gson()
                 val weatherData = gson.fromJson(responseApi, WeatherData::class.java)
@@ -55,29 +52,20 @@ class HomeFragment : Fragment() {
                 val currentTime = getCurrentLocalDate()
                 val chooseClothesForToday = filterClothesDataBySeasonAndTemperature(
                     getAllClothes(),
-                    "summer",
                     weatherData.current.temperature.toInt()
                 )
                 requireActivity().runOnUiThread {
-                    Log.i("Elgohary", "local ->${localTime},,,,\n current${currentTime}")
-
-                    Toast.makeText(
-                        binding.root.context,
-                        "${localTime}, ${currentTime}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    setComponentOnFragment(weatherData, chooseClothesForToday)
+                    setComponentOnFragment(weatherData)
                     if (localTime != currentTime) {
-                        val yesterdayClothesId = sharedPreferences.getString("idClothesToday","")
+                        val yesterdayClothesId = PrefUtil.idOfClothes
                         val clothesToday = chooseClothesForToday
                             .filter{it.id != yesterdayClothesId}.random()
-//                        addToSharedPreferences("idClothesToday", clothesToday.id)
                         Glide.with(binding.imageViewSuggestClothes.context)
                             .load(clothesToday.imageUrl)
                             .placeholder(R.drawable.ellipse_temp)
                             .into(binding.imageViewSuggestClothes)
                     }else{
-                        uploadImage(chooseClothesForToday)
+                        filterAndUploadImage(chooseClothesForToday)
                     }
                 }
             }
@@ -92,19 +80,20 @@ class HomeFragment : Fragment() {
         return dateFormat.format(calendar.time)
     }
 
-    private fun uploadImage(chooseClothesForToday: List<ClothesData>) {
-        val sharedPreferences =
-            requireActivity().getSharedPreferences(DATE_INFORMATION, Context.MODE_PRIVATE)
-
-        val storeIdImage = sharedPreferences.getString("idClothesToday","")
-        Glide.with(binding.imageViewSuggestClothes.context).load(chooseClothesForToday.filter {it.id == storeIdImage}[0].imageUrl)
+    private fun filterAndUploadImage(chooseClothesForToday: List<ClothesData>) {
+        val storeIdImage = PrefUtil.idOfClothes
+        val filteredClothesAndGetImage = storeIdImage?.let { filterClothesById(chooseClothesForToday, it) }
+        Glide.with(binding.imageViewSuggestClothes.context).load(filteredClothesAndGetImage?.imageUrl)
             .placeholder(R.drawable.ellipse_temp)
             .into(binding.imageViewSuggestClothes)
     }
+    fun filterClothesById(chooseClothesForToday: List<ClothesData>, storeIdImage: String)
+       = chooseClothesForToday.filter {it.id == storeIdImage}[0]
+
+
 
     private fun setComponentOnFragment(
-        weatherData: WeatherData,
-        chooseClothesForToday: List<ClothesData>
+        weatherData: WeatherData
     ) {
         binding.apply {
             textCurrentTime.text = LocalTime.now().toString().removeRange(
@@ -115,36 +104,18 @@ class HomeFragment : Fragment() {
             textTemperatureCard.text = weatherData.current.temperature.toInt().toString()
             textViewWeatherStatus.text = weatherData.current.weatherDescriptions[0]
             textViewHistory.text =
-                weatherData.location.localtime /*"${LocalDate.now().month.toString().lowercase()}-${LocalDate.now().dayOfMonth}-${LocalDate.now().year}"*/
-
+                weatherData.location.localtime
         }
     }
 
     fun filterClothesDataBySeasonAndTemperature(
         clothesList: List<ClothesData>,
-        season: String,
         temperature: Int
-    ): List<ClothesData> {
-        return clothesList.filter { clothesData ->
-            clothesData.seasonType == season &&
-                    temperature in clothesData.weatherDegree.first..clothesData.weatherDegree.second
-        }
-    }
-    fun addToSharedPreferences(key: String, dayOfThisClothes: String) {
-        val sharedPreferences =
-            requireActivity().getSharedPreferences(DATE_INFORMATION, Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString(key, dayOfThisClothes)
-        editor.apply()
-    }
-    fun removeFromSharedPreferences(name: String) {
-        val sharedPreferences =
-            requireActivity().getSharedPreferences(DATE_INFORMATION, Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.remove(name)
-        editor.apply()
-    }
+    ): List<ClothesData> = clothesList.filter { clothesData ->
+            temperature in clothesData.weatherDegree.first..clothesData.weatherDegree.second }
+
     companion object {
         const val DATE_INFORMATION = "Date Information"
+        const val CLOTHES_ID = "idClothesToday"
     }
 }
